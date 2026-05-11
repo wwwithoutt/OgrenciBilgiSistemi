@@ -26,6 +26,36 @@ namespace OgrenciBilgiSistemi
         public MainWindow()
         {
             InitializeComponent();
+
+
+            // Пытаемся загрузить данные, если файл существует
+            if (File.Exists("ogrenci.json"))
+            {
+                try
+                {
+                    // 1. Читаем текст из файла
+                    string jsonVeri = File.ReadAllText("ogrenci.json");
+
+                    // 2. Превращаем текст обратно в объект Ogrenci
+                    activeOgrenci = JsonSerializer.Deserialize<Ogrenci>(jsonVeri);
+
+                    // 3. РУКАМИ расставляем данные по полочкам (в TextBox-ы)
+                    TxtAd.Text = activeOgrenci.Ad;
+                    TxtSoyad.Text = activeOgrenci.Soyad;
+                    TxtNumara.Text = activeOgrenci.OgrenciNumara.ToString();
+
+                    // 4. Обновляем список предметов
+                    DersListi.ItemsSource = activeOgrenci.AlanDersler;
+
+                    // 5. Обновляем счетчик
+                    ToplamDers.Text = activeOgrenci.AlanDersler.Count.ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Не удалось загрузить данные: " + ex.Message);
+                }
+            }
+
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
@@ -35,19 +65,27 @@ namespace OgrenciBilgiSistemi
                 activeOgrenci.Ad = TxtAd.Text;
                 activeOgrenci.Soyad = TxtSoyad.Text;
                 activeOgrenci.OgrenciFakulte = TxtBolum.Text;
+                
                 if(int.TryParse(TxtNumara.Text , out int numara))
                 {
                     activeOgrenci.OgrenciNumara = numara; 
                 }else
                 {
                     MessageBox.Show("Numarada Sadece Sayilar olmalu");
+                    
                 }
+
+                var options = new JsonSerializerOptions { WriteIndented = true }; //текст в файле 
+                string jsonVeri = JsonSerializer.Serialize(activeOgrenci, options);
+
+                File.WriteAllText("ogrenci.json", jsonVeri);
+                MessageBox.Show("Veriler Eklendi");
 
 
             }
             catch (Exception ex)
             { 
-                MessageBox.Show(ex.Message);
+                MessageBox.Show($"Error : {ex.Message}");
             } 
             
 
@@ -104,6 +142,6 @@ namespace OgrenciBilgiSistemi
             }
         }
 
-   
+
     }
 }

@@ -68,7 +68,7 @@ namespace OgrenciBilgiSistemi.Models
 
         public string OgrenciFakulte
         {
-            get { return _ogr_fakulte; }
+            get { return _ogr_fakulte;}
             set
             {
                 if (value == _ogr_fakulte) return;
