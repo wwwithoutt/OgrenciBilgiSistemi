@@ -1,0 +1,59 @@
+﻿<Window x:Class="OgrenciBilgiSistemi.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OgrenciBilgiSistemi"
+        mc:Ignorable="d"
+        Title="Ogreni Bilgileri" Height="450" Width="800">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="Ogrenci Bilgileri" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <UniformGrid Columns="2">
+                <StackPanel Margin="5">
+                    <TextBlock Text="Ad:"/>
+                    <TextBox x:Name="TxtAd" Margin="0,5"/>
+
+                    <TextBlock Text="Soyad:"/>
+                    <TextBox x:Name="TxtSoyad" Margin="0,5"/>
+                </StackPanel>
+
+                <StackPanel Margin="5">
+                    <TextBlock Text="Numara: "/>
+                    <TextBox  x:Name="TxtNumara" Margin="0,5" />
+
+                    <TextBlock Text="Bölüm :"/>
+                    <TextBox x:Name="TxtBolum" Margin="0,5"/>
+                </StackPanel>
+            </UniformGrid>
+        </StackPanel>
+
+        <GroupBox Header="Derser" Padding="10" Grid.Row="1" >
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top"  Margin="0,0,0,10" Orientation="Horizontal" >
+                    <TextBox x:Name="TxtNewDers" Width="200" Margin="0,0,10,0"/>
+                    <Button x:Name="BtnAddDers" Content="Ders Ekle" Padding="10,2" Click="BtnAddDers_Click" />
+                </StackPanel>
+
+                <ListBox x:Name="DersListi" PreviewKeyDown="DersListi_PreviewKeyDown" />
+            </DockPanel>
+        </GroupBox>
+
+        <StackPanel Grid.Row="2" Margin="0,20,0,0">
+            <Separator Margin="0,0,0,10"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Toplam Ders: " FontSize="14"/>
+                <TextBlock x:Name="ToplamDers" Text="0" FontSize="14" FontWeight="Bold" Foreground="Blue"/>
+            </StackPanel>
+            <Button x:Name="BilgileriIndir" Content="Save" Height="30" Background="LightGreen" Click="BtnSave_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
